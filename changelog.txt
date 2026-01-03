@@ -1,2 +1,3 @@
 Structure updated now menu.json is inside assets/data/
 Add informative text when add food to chart and show current cart contain
+Update: now after adding item to cart it will show current cart contain and then navigate to show the food menu list 
