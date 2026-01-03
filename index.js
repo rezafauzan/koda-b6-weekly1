@@ -102,14 +102,24 @@ ambilData(path).then(
                                     console.log(`${i}.Nama Menu : ${item.nama} Harga : ${item.harga}`)
                                 }
                             )
-                            data.forEach(
-                                item => {
-                                    console.log(`(${item.id}). ${item.nama} ~ Rp.${item.harga},-`)
-                                }
+                            let countdown = 4
+                            let counterdown = setInterval(
+                                () => {
+                                    console.log(`Kembali ke list menu dalam ${countdown}detik`)
+                                    countdown--
+                                }, 1000
                             )
-                            console.log("()Masukan kata untuk mencari menu")
-                            console.log("(0). Untuk kembali ke halaman utama")
-                            state = 1
+                            setTimeout(() => {
+                                data.forEach(
+                                    item => {
+                                        console.log(`(${item.id}). ${item.nama} ~ Rp.${item.harga},-`)
+                                    }
+                                )
+                                console.log("()Masukan kata untuk mencari menu")
+                                console.log("(0). Untuk kembali ke halaman utama")
+                                clearInterval(counterdown)
+                                state = 1
+                            }, countdown * 1000)
                         }
                     }
                 }
