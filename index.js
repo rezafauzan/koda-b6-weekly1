@@ -24,24 +24,43 @@ let cart = []
 // state 2 detail makanan
 // state 2 pilihan 1 -> tambahkan ke keranjang
 
+const home = `
+===================================================================
+==== Selamat Datang di Program Interactive Pembelian Makanan ======
+===================================================================
+====                      Menu                               ======
+===================================================================
+==== (1) Lihat list menu makanan                             ======
+===================================================================
+====         Silahkan pilih menu dengan memasukan angka      ======
+===================================================================
+Input:
+`
+const menu = `
+===================================================================
+====                      Menu                               ======
+===================================================================
+
+==== ().  Masukan kata untuk mencari menu                    ======
+==== (0). Untuk kembali ke halaman utama                     ======
+===================================================================
+Input:
+`
+// console.log(home)
 ambilData(path).then(
     data => {
-        console.log("==== Selamat Datang di Program Interactive Pembelian Makanan ======")
-        console.log("=== Menu ======")
-        console.log("(1) Lihat list menu makanan")
-        console.log("Silahkan pilih menu dengan memasukan angka")
+        console.log(home)
         process.stdin.on("data",
             input => {
                 if (state === 0) {
                     let pilihan = parseInt(input.toString().trim())
                     if (pilihan === 1) {
+                        console.log(menu)
                         data.forEach(
                             item => {
-                                console.log(`(${item.id}). ${item.nama} ~ Rp.${item.harga},-`)
+                                console.log(`==== (${item.id}). ${item.nama} ~ Rp.${item.harga},-`)
                             }
                         )
-                        console.log("()Masukan kata untuk mencari menu")
-                        console.log("(0). Untuk kembali ke halaman utama")
                         state = 1
                     }
                 }
