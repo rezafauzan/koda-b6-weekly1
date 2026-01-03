@@ -24,28 +24,47 @@ let cart = []
 // state 2 detail makanan
 // state 2 pilihan 1 -> tambahkan ke keranjang
 
-const home = `
-===================================================================
-==== Selamat Datang di Program Interactive Pembelian Makanan ======
-===================================================================
+const header =
+`===================================================================
 ====                      Menu                               ======
-===================================================================
+===================================================================`
+const home = 
+`===================================================================
+==== Selamat Datang di Program Interactive Pembelian Makanan ======
+${header}
 ==== (1) Lihat list menu makanan                             ======
 ===================================================================
 ====         Silahkan pilih menu dengan memasukan angka      ======
 ===================================================================
-Input:
-`
-const menu = `
-===================================================================
-====                      Menu                               ======
-===================================================================
+Input: `
 
-==== ().  Masukan kata untuk mencari menu                    ======
-==== (0). Untuk kembali ke halaman utama                     ======
+const menu = 
+`===================================================================
+==== (n).       Masukan angka untuk memilih makanan          ======
+==== ('kata').  Masukan kata untuk mencari menu              ======
+==== (0).       Untuk kembali ke halaman utama               ======
 ===================================================================
-Input:
-`
+Input: `
+
+const search = 
+`===================================================================
+==== (n).       Masukan angka untuk memilih makanan          ======
+==== (0).       Untuk kembali ke halaman utama               ======
+===================================================================
+Input: `
+
+const food = 
+`===================================================================
+==== (+). Untuk menambahkan ke keranjang                     ======
+==== (0). Untuk kembali ke list makanan                      ======
+===================================================================
+Input: `
+
+const addedToCart = 
+`===================================================================
+==== Menu ini dimasukan ke keranjang                         ======
+===================================================================
+Isi keranjang saat ini : `
 // console.log(home)
 ambilData(path).then(
     data => {
@@ -55,12 +74,13 @@ ambilData(path).then(
                 if (state === 0) {
                     let pilihan = parseInt(input.toString().trim())
                     if (pilihan === 1) {
-                        console.log(menu)
+                        console.log(header)
                         data.forEach(
                             item => {
                                 console.log(`==== (${item.id}). ${item.nama} ~ Rp.${item.harga},-`)
                             }
                         )
+                        console.log(menu)
                         state = 1
                     }
                 }
@@ -69,16 +89,13 @@ ambilData(path).then(
                     if (!isNaN(pilihan)) {
                         pilihan = parseInt(pilihan)
                         if (pilihan === 0) {
-                            console.log("==== Selamat Datang di Program Interactive Pembelian Makanan ======")
-                            console.log("=== Menu ======")
-                            console.log("(1) Lihat list menu makanan")
-                            console.log("Silahkan pilih menu dengan memasukan angka")
+                            console.log(home)
                             state = 0
                         } else {
-                            console.log(`Nama Makanan :${data[parseInt(pilihan) - 1].nama} `)
-                            console.log(`Harga per sajian :${data[parseInt(pilihan) - 1].harga} `)
-                            console.log("(+). Untuk menambahkan ke keranjang")
-                            console.log("(0). Untuk kembali ke list makanan")
+                            console.log("===================================================================")
+                            console.log(`==== Nama Makanan :${data[parseInt(pilihan) - 1].nama}`)
+                            console.log(`==== Harga per sajian :${data[parseInt(pilihan) - 1].harga}`)
+                            console.log(food)
                             choice = data[parseInt(pilihan) - 1]
                             state = 2
                         }
@@ -90,6 +107,7 @@ ambilData(path).then(
                                 console.log(`(${item.id}). ${item.nama} ~ Rp.${item.harga},-`)
                             }
                         )
+                        console.log(search)
                         state = 1
                     }
                 }
@@ -99,13 +117,13 @@ ambilData(path).then(
                         pilihan = parseInt(pilihan)
                         if (pilihan === 0) {
                             // console.log(pilihan)
+                            console.log(header)
                             data.forEach(
                                 item => {
-                                    console.log(`(${item.id}). ${item.nama} ~ Rp.${item.harga},-`)
+                                    console.log(`==== (${item.id}). ${item.nama} ~ Rp.${item.harga},-`)
                                 }
                             )
-                            console.log("()Masukan kata untuk mencari menu")
-                            console.log("(0). Untuk kembali ke halaman utama")
+                            console.log(menu)
                             state = 1
                             // console.log("ke state 1")
                         }
@@ -114,14 +132,14 @@ ambilData(path).then(
                             // console.log(pilihan)
                             // console.log(choice)
                             cart.push(choice)
-                            console.log("Menu ini dimasukan ke keranjang")
-                            console.log(`Isi keranjang saat ini :`)
+                            console.log(addedToCart)
                             cart.forEach(
                                 (item, i) => {
                                     console.log(`${i}.Nama Menu : ${item.nama} Harga : ${item.harga}`)
                                 }
                             )
                             let countdown = 4
+                            console.log('')
                             let counterdown = setInterval(
                                 () => {
                                     console.log(`Kembali ke list menu dalam ${countdown}detik`)
@@ -129,13 +147,13 @@ ambilData(path).then(
                                 }, 1000
                             )
                             setTimeout(() => {
+                                console.log(header)
                                 data.forEach(
                                     item => {
-                                        console.log(`(${item.id}). ${item.nama} ~ Rp.${item.harga},-`)
+                                        console.log(`==== (${item.id}). ${item.nama} ~ Rp.${item.harga},-`)
                                     }
                                 )
-                                console.log("()Masukan kata untuk mencari menu")
-                                console.log("(0). Untuk kembali ke halaman utama")
+                                console.log(menu)
                                 clearInterval(counterdown)
                                 state = 1
                             }, countdown * 1000)
@@ -145,11 +163,8 @@ ambilData(path).then(
                 else if (state === 9) {
                     let pilihan = parseInt(input.toString().trim())
                     if (pilihan === 0) {
-                        console.log("State 9")
-                        console.log("==== Selamat Datang di Program Interactive Pembelian Makanan ======")
-                        console.log("=== Menu ======")
-                        console.log("(1) Lihat list menu makanan")
-                        console.log("Silahkan pilih menu dengan memasukan angka")
+                        // console.log("State 9")
+                        console.log(home)
                         state = 0
                     }
                 }
