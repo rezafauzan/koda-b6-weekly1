@@ -10,7 +10,7 @@ async function ambilData(resource) {
     }
 }
 
-let path = "https://github.com/rezafauzan/koda-b6-weekly1/raw/refs/heads/master/menu.json"
+let path = "https://raw.githubusercontent.com/rezafauzan/koda-b6-weekly1/refs/heads/master/assets/data/menu.json"
 let state = 0
 let choice
 let cart = []
@@ -79,7 +79,7 @@ ambilData(path).then(
                     if (!isNaN(pilihan)) {
                         pilihan = parseInt(pilihan)
                         if (pilihan === 0) {
-                            console.log(pilihan)
+                            // console.log(pilihan)
                             data.forEach(
                                 item => {
                                     console.log(`(${item.id}). ${item.nama} ~ Rp.${item.harga},-`)
@@ -91,11 +91,17 @@ ambilData(path).then(
                             // console.log("ke state 1")
                         }
                     } else {
-                        if(pilihan === "+"){
+                        if (pilihan === "+") {
                             // console.log(pilihan)
                             // console.log(choice)
                             cart.push(choice)
                             console.log("Menu ini dimasukan ke keranjang")
+                            console.log(`Isi keranjang saat ini :`)
+                            cart.forEach(
+                                (item, i) => {
+                                    console.log(`${i}.Nama Menu : ${item.nama} Harga : ${item.harga}`)
+                                }
+                            )
                         }
                     }
                 }
