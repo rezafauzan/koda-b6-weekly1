@@ -4,3 +4,5 @@ Update: now after adding item to cart it will show current cart contain and then
 Update: after adding item it will wait 4second before navigate back to show menu
 Update: now the menu UI are stored in variable for easy to read the code; relayout: home UI
 Update: split the header from ui so it's can be use on food list ui
+Update: all ui created now stored in variable and better UI layout
+Update: add show cart and remove cart item page
