@@ -18,5 +18,9 @@
 2. di halaman keranjang jika diinput angka 1 akan mencetak invoice(jika keranjang kosong kembali ke halaman utama) jika 0 kembali ke halaman utama (Aman)
 
 <!-- Halaman History-->
-1. jika belum ada invoice tampilkan "Belum ada invoice" kemudian kembali ke menu utama
-2. jika ada invoice tampilkan invoice invoice semuanya
+1. jika belum ada invoice tampilkan "Belum ada invoice" kemudian kembali ke menu utama (Aman)
+2. jika ada invoice tampilkan invoice invoice semuanya (Aman)
+3. jika di halaman history di tekan 1 maka akan dibuatkan file di assets/data/invoices/invoice-id-timestamp (Aman)
+
+<!-- Issue -->
+1. Input Kosong membuat program keluar

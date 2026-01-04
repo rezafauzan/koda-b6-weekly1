@@ -1,4 +1,5 @@
 const searcher = require('./my_modules/Day7/search')
+const filme = require('./my_modules/Day10/filemanager')
 
 async function ambilData(resource) {
     try {
@@ -99,6 +100,7 @@ Input: `
 
 const invoiceListUI =
     `===================================================================
+==== (1). Cetak ke assets/data/invoice/invoice.txt           ======
 ==== (0). Untuk kembali ke halaman utama                     ======
 ===================================================================
 Input: `
@@ -175,9 +177,7 @@ ambilData(path).then(
                                     )
                                     console.log(`===================================================================`)
                                     console.log(`==== Total yang harus dibayar : Rp.${sum},-                  ======`)
-                                    console.log(`===================================================================`)
-                                    console.log(`==== (0). Untuk kembali ke halaman utama                     ======`)
-                                    console.log(`===================================================================`)
+                                    console.log(invoiceListUI)
                                 }
                             )
                             state = 7
@@ -192,9 +192,9 @@ ambilData(path).then(
                             console.log(home)
                             state = 0
                         } else {
-                            if(pilihan > data.length){
+                            if (pilihan > data.length) {
                                 console.log("Pilihan angka tidak ada di menu")
-                            }else{
+                            } else {
                                 console.log("===================================================================")
                                 console.log(`==== Nama Makanan :${data[parseInt(pilihan) - 1].nama}`)
                                 console.log(`==== Harga per sajian :${data[parseInt(pilihan) - 1].harga}`)
@@ -388,6 +388,23 @@ ambilData(path).then(
                     if (pilihan === 0) {
                         console.log(home)
                         state = 0
+                    } else if (pilihan === 1) {
+                        console.log("Membuat file invoices.txt di assets/data/invoices/")
+                        let sum = 0
+                        invoice.forEach(
+                            (invo, i) => {
+                                let content =`\n===================================================================\n====                 Invoice Pembelian No.${i}                ======\n===================================================================`
+                                invo.forEach(
+                                    (item, i) => {
+                                        content += `\n${i + 1}.Nama Menu : ${item.nama} Harga : Rp.${item.harga},-\n`
+                                        sum += parseInt(item.harga)
+                                    }
+                                )
+                                content += `===================================================================` + `\n==== Total yang harus dibayar : Rp.` + `${sum},-                  ======\n`
+                                // console.log(content)
+                                filme(`Invoices-${i}`, content)
+                            }
+                        )
                     }
                 }
                 else if (state === 9) {
