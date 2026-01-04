@@ -14,10 +14,12 @@ let path = "https://raw.githubusercontent.com/rezafauzan/koda-b6-weekly1/refs/he
 let state = 0
 let choice
 let cart = []
+let invoice = []
 
 // state 0 menu utama
 // state 0 pilihan 1 list makanan
-// state 0 pilihan 1 list makanan
+// state 0 pilihan 2 lihat keranjang
+// state 0 pilihan 3 checkout
 // state 1 pilihan 0 kembali ke menu utama
 // state 1 input string -> mencari makanan
 // state 1 input di range menu -> detail makanan 
@@ -25,6 +27,7 @@ let cart = []
 // state 2 pilihan + -> tambahkan ke keranjang
 // state 3 lihat keranjang
 // state 4 hapus item di keranjang
+// state 5 -> buat invoice
 
 const header =
     `===================================================================
@@ -36,6 +39,7 @@ const home =
 ${header}
 ==== (1) Lihat list menu makanan                             ======
 ==== (2) Lihat keranjang                                     ======
+==== (3) Checkout keranjang                                  ======
 ===================================================================
 ====         Silahkan pilih menu dengan memasukan angka      ======
 ===================================================================
@@ -83,6 +87,13 @@ const removeCartUI =
 ===================================================================
 Input: `
 
+const paymentUI =
+    `===================================================================
+==== (1). Untuk mencetak invoice pesanan                     ======
+==== (0). Untuk kembali ke halaman utama                     ======
+===================================================================
+Input: `
+
 // console.log(home)
 ambilData(path).then(
     data => {
@@ -109,12 +120,29 @@ ambilData(path).then(
                             console.log(`===================================================================\n====                       Keranjang                         ======\n\n===================================================================\nIsi keranjang saat ini : `)
                             cart.forEach(
                                 (item, i) => {
-                                    console.log(`${i+1}.Nama Menu : ${item.nama} Harga : ${item.harga}`)
+                                    console.log(`${i + 1}.Nama Menu : ${item.nama} Harga : ${item.harga}`)
                                 }
                             )
                             console.log(cartUI)
                         }
                         state = 3
+                    }
+                    else if (pilihan === 3) {
+                        if (cart.length < 1) {
+                            console.log(`===================================================================`)
+                            console.log("====                 Keranjang mu masih kosong!              ======")
+                            console.log(`===================================================================`)
+                            console.log(paymentUI)
+                        } else {
+                            console.log(`===================================================================\n====                       Keranjang                         ======\n\n===================================================================\nIsi keranjang saat ini : `)
+                            cart.forEach(
+                                (item, i) => {
+                                    console.log(`${i + 1}.Nama Menu : ${item.nama} Harga : ${item.harga}`)
+                                }
+                            )
+                            console.log(paymentUI)
+                        }
+                        state = 5
                     }
                 }
                 else if (state === 1) {
@@ -168,7 +196,7 @@ ambilData(path).then(
                             console.log(addedToCart)
                             cart.forEach(
                                 (item, i) => {
-                                    console.log(`${i+1}.Nama Menu : ${item.nama} Harga : ${item.harga}`)
+                                    console.log(`${i + 1}.Nama Menu : ${item.nama} Harga : ${item.harga}`)
                                 }
                             )
                             let countdown = 4
@@ -211,7 +239,7 @@ ambilData(path).then(
                                 console.log('')
                                 let counterdown = setInterval(
                                     () => {
-                                        console.log(`Kembali ke list menu dalam ${countdown}detik`)
+                                        console.log(`Kembali ke menu utama dalam ${countdown}detik`)
                                         countdown--
                                     }, 1000
                                 )
@@ -246,12 +274,63 @@ ambilData(path).then(
                         console.log(`===================================================================\n====                       Keranjang                         ======\n\n===================================================================\nIsi keranjang saat ini : `)
                         cart.forEach(
                             (item, i) => {
-                                console.log(`${i+1}.Nama Menu : ${item.nama} Harga : ${item.harga}`)
+                                console.log(`${i + 1}.Nama Menu : ${item.nama} Harga : ${item.harga}`)
                             }
                         )
                         console.log(cartUI)
                     }
                     state = 3
+                }
+                else if (state === 5) {
+                    let pilihan = parseInt(input.toString().trim())
+                    if (cart.length < 1) {
+                        console.log(`===================================================================`)
+                        console.log("====                 Keranjang mu masih kosong!              ======")
+                        console.log(`===================================================================`)
+                        console.log(home)
+                        state = 0
+                    } else {
+                        if (!isNaN(pilihan)) {
+                            pilihan = parseInt(pilihan)
+                            if (pilihan === 0) {
+                                console.log(home)
+                                state = 0
+                            }
+                            if (pilihan === 1) {
+                                let sum = 0
+                                console.log(`====                 Invoice Berhasil Dibuat !               ======`)
+                                cart = []
+                                console.log(`====                 Keranjang Dikosongkan!                  ======`)
+                                console.log(`===================================================================`)
+                                console.log(`====                 Invoice Pembelian No.${invoice.length - 1}                ======`)
+                                console.log(`===================================================================`)
+                                cart.forEach(
+                                    (item, i) => {
+                                        console.log(`${i + 1}.Nama Menu : ${item.nama} Harga : ${item.harga}`)
+                                        sum += parseInt(item.harga)
+                                    }
+                                )
+                                console.log(`===================================================================`)
+                                console.log(`==== Total yang harus dibayar : Rp.${sum},-                  ======`)
+                                console.log()
+                                console.log(`==== Tekan (enter) untuk melanjutkan                           ======`)
+                                state = 6
+                            }
+                        }
+                    }
+                }
+                else if (state === 6) {
+                    let pilihan = parseInt(input.toString().trim())
+                    if (cart.length < 1) {
+                        console.log(`===================================================================`)
+                        console.log("====                 Keranjang mu masih kosong!              ======")
+                        console.log(`===================================================================`)
+                        console.log(home)
+                        state = 0
+                    } else {
+                        console.log(home)
+                        state = 0
+                    }
                 }
                 else if (state === 9) {
                     let pilihan = parseInt(input.toString().trim())
