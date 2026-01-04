@@ -1,0 +1,29 @@
+{
+    "name": "program-interactive-point-of-sales-restoran",
+    "version": "1.0.0",
+    "description": "Tugas Mingguan 1 Koda Academy Batch 6 Membuat Program interaktif penjualan restoran",
+    "homepage": "https://github.com/rezafauzan/koda-b6-weekly1#readme",
+    "bugs": {
+        "url": "https://github.com/rezafauzan/koda-b6-weekly1/issues"
+    },
+    "repository": {
+        "type": "git",
+        "url": "git+https://github.com/rezafauzan/koda-b6-weekly1.git"
+    },
+    "license": "MIT",
+    "author": "Reza Fauzan Adhima",
+    "type": "commonjs",
+    "main": "index.js",
+    "scripts": {
+        "dev-mode": "node --watch ./index.js",
+        "start": "node ./index.js",
+        "lint": "npx eslint ./**/*.js",
+        "lint:fix": "npx eslint ./**/*.js --fix",
+        "test": "echo \"Error: no test specified\" && exit 1"
+    },
+    "devDependencies": {
+        "@eslint/js": "^9.39.2",
+        "eslint": "^9.39.2",
+        "globals": "^17.0.0"
+    }
+}
